@@ -75,7 +75,7 @@ public class EcoGalleryIndicator extends View {
 
 	@Override
 	protected void onDraw(Canvas canvas) {
-		// super.onDraw(canvas);
+		super.onDraw(canvas);
 		if (galleryHasAdapter()) {
 			int selectedItemPosition = mEcoGallery.getSelectedItemPosition();
 			for (int i = 0; i < mItemsCount; i++) {
@@ -108,6 +108,10 @@ public class EcoGalleryIndicator extends View {
 
 	private int getColNumber(int position) {
 		return position % mMaxItemsInLine;
+	}
+
+	private boolean galleryHasAdapter() {
+		return (mEcoGallery != null) && (mEcoGallery.getAdapter() != null);
 	}
 
 	@Override
@@ -148,10 +152,6 @@ public class EcoGalleryIndicator extends View {
 			invalidate();
 			requestLayout();
 		}
-	}
-
-	private boolean galleryHasAdapter() {
-		return (mEcoGallery != null) && (mEcoGallery.getAdapter() != null);
 	}
 
 }
