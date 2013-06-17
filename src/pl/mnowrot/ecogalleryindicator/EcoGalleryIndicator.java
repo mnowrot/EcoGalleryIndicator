@@ -29,6 +29,7 @@ public class EcoGalleryIndicator extends View {
 	private ShapeDrawable mShape;
 	private int mMaxItemsInLine;
 	private int mLinesCount;
+	private OnItemSelectedListener mOnItemSelectedListener;
 
 	/**
 	 * @param context
@@ -118,6 +119,7 @@ public class EcoGalleryIndicator extends View {
 
 	@Override
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 		int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
 		mMaxItemsInLine = countMaxItemsInLine(parentWidth - getPaddingLeft() - getPaddingRight());
 		mLinesCount = countLines();
@@ -156,20 +158,70 @@ public class EcoGalleryIndicator extends View {
 		}
 	}
 
+	public int getColor() {
+		return mColor;
+	}
+
+	/**
+	 * Sets indicator items color. The color needs to be obtained via getResources().getColor(int colorId) before
+	 * passing it to this method
+	 * 
+	 * @param mColor
+	 */
+	public void setColor(int mColor) {
+		this.mColor = mColor;
+		redraw();
+	}
+
+	public int getSize() {
+		return mSize;
+	}
+
+	/**
+	 * Size of the indicator item in raw pixels. Use getResources().getDimensionPixelSize(int dimensResourceId) to
+	 * obtain it before passing to this method
+	 * 
+	 * @param mSize
+	 */
+	public void setSize(int mSize) {
+		this.mSize = mSize;
+		redraw();
+	}
+
 	private void redraw() {
 		invalidate();
 		requestLayout();
+	}
+
+	public OnItemSelectedListener getmOnItemSelectedListener() {
+		return mOnItemSelectedListener;
+	}
+
+	/**
+	 * Routing method for the OnItemSelectedListener used previously directly on the EcoGallery
+	 * 
+	 * @param mOnItemSelectedListener
+	 */
+	public void setmOnItemSelectedListener(OnItemSelectedListener mOnItemSelectedListener) {
+		this.mOnItemSelectedListener = mOnItemSelectedListener;
 	}
 
 	private class SelectionChangedAdapter implements OnItemSelectedListener {
 
 		@Override
 		public void onItemSelected(EcoGalleryAdapterView<?> parent, View view, int position, long id) {
+			// execute the externally set listener first
+			if (mOnItemSelectedListener != null) {
+				mOnItemSelectedListener.onItemSelected(parent, view, position, id);
+			}
 			redraw();
 		}
 
 		@Override
 		public void onNothingSelected(EcoGalleryAdapterView<?> parent) {
+			if (mOnItemSelectedListener != null) {
+				mOnItemSelectedListener.onNothingSelected(parent);
+			}
 			redraw();
 		}
 	}
