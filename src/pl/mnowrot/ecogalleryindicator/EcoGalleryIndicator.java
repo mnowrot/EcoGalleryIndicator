@@ -193,7 +193,7 @@ public class EcoGalleryIndicator extends View {
 		requestLayout();
 	}
 
-	public OnItemSelectedListener getmOnItemSelectedListener() {
+	public OnItemSelectedListener getOnItemSelectedListener() {
 		return mOnItemSelectedListener;
 	}
 
@@ -202,7 +202,7 @@ public class EcoGalleryIndicator extends View {
 	 * 
 	 * @param mOnItemSelectedListener
 	 */
-	public void setmOnItemSelectedListener(OnItemSelectedListener mOnItemSelectedListener) {
+	public void setOnItemSelectedListener(OnItemSelectedListener mOnItemSelectedListener) {
 		this.mOnItemSelectedListener = mOnItemSelectedListener;
 	}
 
