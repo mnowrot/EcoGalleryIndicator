@@ -4,6 +4,8 @@
 package pl.mnowrot.ecogalleryindicator;
 
 import us.feras.ecogallery.EcoGallery;
+import us.feras.ecogallery.EcoGalleryAdapterView;
+import us.feras.ecogallery.EcoGalleryAdapterView.OnItemSelectedListener;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -147,10 +149,28 @@ public class EcoGalleryIndicator extends View {
 
 	public void setEcoGallery(EcoGallery mEcoGallery) {
 		this.mEcoGallery = mEcoGallery;
+		this.mEcoGallery.setOnItemSelectedListener(new SelectionChangedAdapter());
 		if (galleryHasAdapter()) {
 			mItemsCount = mEcoGallery.getAdapter().getCount();
-			invalidate();
-			requestLayout();
+			redraw();
+		}
+	}
+
+	private void redraw() {
+		invalidate();
+		requestLayout();
+	}
+
+	private class SelectionChangedAdapter implements OnItemSelectedListener {
+
+		@Override
+		public void onItemSelected(EcoGalleryAdapterView<?> parent, View view, int position, long id) {
+			redraw();
+		}
+
+		@Override
+		public void onNothingSelected(EcoGalleryAdapterView<?> parent) {
+			redraw();
 		}
 	}
 
