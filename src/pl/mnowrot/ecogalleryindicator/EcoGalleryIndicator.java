@@ -60,7 +60,6 @@ public class EcoGalleryIndicator extends View {
 
 	private void initializeShapes() {
 		mShape = new ShapeDrawable(new OvalShape());
-		mShape.getPaint().setColor(mColor);
 	}
 
 	private void initializeAttrs(Context context, AttributeSet attrs, int defStyle) {
@@ -80,6 +79,7 @@ public class EcoGalleryIndicator extends View {
 	protected void onDraw(Canvas canvas) {
 		super.onDraw(canvas);
 		if (galleryHasAdapter()) {
+			mShape.getPaint().setColor(mColor);
 			int selectedItemPosition = mEcoGallery.getSelectedItemPosition();
 			for (int i = 0; i < mItemsCount; i++) {
 				int leftBoundary = getLeftBoundary(i);
